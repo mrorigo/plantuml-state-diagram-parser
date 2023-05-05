@@ -1,0 +1,19 @@
+@startuml
+[*] --> NotBlinking : PowerOn
+
+state Blinking {
+    state LedOn {}
+    state LedOff
+
+    LedOn --> LedOff : TurnOn
+    LedOff --> LedOn : TurnOff
+    Blinking --> NotBlinking : SwitchOff
+    Blinking --> [*] : PowerOff
+}
+
+state NotBlinking as NotBlinking {
+    NotBlinking --> Blinking : SwitchOn
+    NotBlinking --> [*] : PowerOff
+}
+
+@enduml

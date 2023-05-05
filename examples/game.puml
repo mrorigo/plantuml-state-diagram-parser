@@ -1,0 +1,24 @@
+@startuml
+[*] --> GameStart
+GameStart --> PlayerXTurn : StartGame
+
+state PlayerXTurn {
+  [*] --> XMove
+  XMove --> CheckXWinOrDraw : PlaceX
+  CheckXWinOrDraw --> XWon : XWins
+  CheckXWinOrDraw --> Draw : Draw
+  CheckXWinOrDraw --> PlayerOTurn : NoWin,NoDraw
+}
+
+state PlayerOTurn {
+  [*] --> OMove
+  OMove --> CheckOWinOrDraw : PlaceO
+  CheckOWinOrDraw --> OWon : OWins
+  CheckOWinOrDraw --> Draw : Draw
+  CheckOWinOrDraw --> PlayerXTurn : NoWin,NoDraw
+}
+
+PlayerXTurn --> GameOver : XWon,Draw
+PlayerOTurn --> GameOver : OWon,Draw
+GameOver --> [*]
+@enduml
